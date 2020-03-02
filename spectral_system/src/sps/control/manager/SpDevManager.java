@@ -8,6 +8,7 @@ package sps.control.manager;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import nahon.comm.faultsystem.LogCenter;
+import sps.platform.SpectralPlatService;
 
 /**
  *
@@ -21,7 +22,13 @@ public class SpDevManager {
 
     public static void SetSPDevDriver(ISPDevSearch instance) {
         try {
-            LogCenter.Instance().PrintLog(Level.INFO, instance.InitDriver());
+            String need_clean = SpectralPlatService.GetInstance().GetConfig().getProperty("INTDLL", "Y");
+            if (need_clean.contentEquals("Y")) {
+                LogCenter.Instance().PrintLog(Level.INFO, instance.InitDriver(true));
+                SpectralPlatService.GetInstance().GetConfig().setProperty("INTDLL", "N");
+            } else {
+                LogCenter.Instance().PrintLog(Level.INFO, instance.InitDriver(false));
+            }
             search_instance = instance;
         } catch (Exception ex) {
             LogCenter.Instance().SendFaultReport(Level.SEVERE, ex);
