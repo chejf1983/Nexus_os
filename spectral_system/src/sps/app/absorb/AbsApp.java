@@ -184,20 +184,22 @@ public class AbsApp extends CTestApp {
             throw new Exception("参考光和测量光数据不匹配");
         }
 
-        for (int i = 0; i < tmp.length; i++) {
-            if (data.data.datavalue[i] == 0 || (this.base_data.data.datavalue[i] / data.data.datavalue[i]) > 10000) {
-                tmp[i] = 4;
-            } else {
-                if (this.base_data.data.datavalue[i] == 0) {
-                    tmp[i] = 0;
-                } else {
-                    try {
-                        tmp[i] = Math.log10(this.base_data.data.datavalue[i] / data.data.datavalue[i]);
-                    } catch (Exception ex) {
-                        tmp[i] = 0;
-                    }
-//                    tmp[i] = tmp[i] > 100 ? 100 : tmp[i];
+         for (int i = 0; i < tmp.length; i++) {
+            if (this.base_data.data.datavalue[i] <= 0 || this.base_data.data.datavalue[i] < data.data.datavalue[i]) {
+                tmp[i] = 0;
+            } else if (data.data.datavalue[i] <= 0) {
+                try {
+                    tmp[i] = Math.log10(this.base_data.data.datavalue[i] / 0.001d);
+                } catch (Exception ex) {
+                    tmp[i] = -1;
                 }
+            } else {
+                try {
+                    tmp[i] = Math.log10(this.base_data.data.datavalue[i] / data.data.datavalue[i]);
+                } catch (Exception ex) {
+                    tmp[i] = -1;
+                }
+//                    tmp[i] = tmp[i] > 100 ? 100 : tmp[i];                
             }
             tmp[i] = new BigDecimal(tmp[i]).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
         }

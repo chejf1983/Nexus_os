@@ -179,15 +179,18 @@ public class TrsApp extends CTestApp {
         if (this.base_data == null) {
             throw new Exception("请先采集参考光");
         }
-        
+
         double[] tmp = new double[data.data.datavalue.length];
         if (tmp.length != this.base_data.data.datavalue.length) {
             throw new Exception("参考光和测量光数据不匹配");
         }
 
         for (int i = 0; i < tmp.length; i++) {
-                if (base_data.data.datavalue[i] == 0) {
+            if (data.data.datavalue[i] <= 0) {
                 tmp[i] = 0;
+            } else if (base_data.data.datavalue[i] <= 0) {
+                tmp[i] = (data.data.datavalue[i] / 0.001d) * 100;
+                tmp[i] = tmp[i] > MaxTransmitRate ? MaxTransmitRate : tmp[i];
             } else {
                 tmp[i] = (data.data.datavalue[i] / base_data.data.datavalue[i]) * 100;
                 tmp[i] = tmp[i] > MaxTransmitRate ? MaxTransmitRate : tmp[i];
