@@ -290,6 +290,9 @@ public class StanderApp extends CTestApp {
                 //申请设备控制权
                 dev.Open();
 
+                //默认10次平均，10ms积分时间
+                parent.TestConfig.collect_par.averageTime = 10;
+                parent.TestConfig.collect_par.integralTime = 10;
                 //设置测试条件
                 dev.SetCollectPar(parent.TestConfig.collect_par);                               
                 dev.SetCollectConfig(parent.TestConfig.collect_config);
