@@ -43,13 +43,27 @@ public class SpDevManager {
             return false;
         }
 
-        for (ISpDevice dev : search_instance.SearchDevice()) {
-            try (ISpDevice tdev = dev) {
-                tdev.Open();
-                tdev.InitDevice();
-                this.devlist.add(tdev);
-            } catch (Exception ex) {
-                LogCenter.Instance().SendFaultReport(Level.SEVERE, ex);
+        String need_com = SpectralPlatService.GetInstance().GetConfig().getProperty("COM", "N");
+        if (need_com.contentEquals("Y")) {
+            for (ISpDevice dev : search_instance.SearchDeviceWithCom()) {
+
+                try (ISpDevice tdev = dev) {
+                    tdev.Open();
+                    tdev.InitDevice();
+                    this.devlist.add(tdev);
+                } catch (Exception ex) {
+                    LogCenter.Instance().SendFaultReport(Level.SEVERE, ex);
+                }
+            }
+        } else {
+            for (ISpDevice dev : search_instance.SearchDevice()) {
+                try (ISpDevice tdev = dev) {
+                    tdev.Open();
+                    tdev.InitDevice();
+                    this.devlist.add(tdev);
+                } catch (Exception ex) {
+                    LogCenter.Instance().SendFaultReport(Level.SEVERE, ex);
+                }
             }
         }
         this.SetSelectIndex(-1);

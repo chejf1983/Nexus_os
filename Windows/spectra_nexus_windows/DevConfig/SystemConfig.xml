@@ -2,7 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment/>
-<entry key="BGroundColor">#666666</entry>
-<entry key="Filterkey">1</entry>
+<entry key="INTDLL">N</entry>
 <entry key="VER">1.0.0.0</entry>
+<entry key="Filterkey">1</entry>
+<entry key="BGroundColor">#666666</entry>
 </properties>
