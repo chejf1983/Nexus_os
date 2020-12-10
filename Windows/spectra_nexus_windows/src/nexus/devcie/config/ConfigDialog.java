@@ -33,9 +33,9 @@ public class ConfigDialog extends javax.swing.JDialog {
         spPane.SetCollector(dev);
         TabbedPane.add("光谱系数设置", spPane);
 //            
-//        SetUpLinearPar linearpane = new SetUpLinearPar();
-//        linearpane.SetCollector(dev);
-//        TabbedPane.add("LinearPane"), linearpane);
+        SetUpLinearPar linearpane = new SetUpLinearPar();
+        linearpane.SetCollector(dev);
+        TabbedPane.add("非线性系数", linearpane);
 //            
             ConfigTablePane lightpane = new ConfigTablePane(dev);
             TabbedPane.add("光源设置", lightpane);

@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/app/std/StanderApp.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/control/manager/SpDevManager.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/control/manager/ISPDevSearch.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/app/absorb/AbsApp.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/app/transmit/TrsApp.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/app/common/AppManager.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/dev/data/SSCollectPar.java</file>
-            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/app/common/GlobalConfig.java</file>
+            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/dev/data/SSLinearParameter.java</file>
+            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/control/manager/ISpDevice.java</file>
+            <file>file:/D:/GitHub/singlebranch/Spectral/Nexus_os/spectral_system/src/sps/app/std/LinearParameterHelper.java</file>
         </group>
     </open-files>
 </project-private>

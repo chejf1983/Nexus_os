@@ -12,9 +12,11 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 import nexus.main.compent.FileDialogHelp;
 import sps.app.std.LinearParameterHelper;
 import sps.control.manager.ISpDevice;
+import sps.dev.data.SSLinearParameter;
 
 /**
  *
@@ -27,49 +29,45 @@ public class SetUpLinearPar extends javax.swing.JPanel {
      */
     public SetUpLinearPar() {
         initComponents();
-        this.Button_Import.setText("导入非线性数据");
-        this.Button_Export.setText("导出非线性数据");
+//        this.Button_Import.setText("导入非线性数据");
+        this.Button_Export.setText("导出数据");
     }
 
     private ISpDevice dev;
 
     public void SetCollector(ISpDevice dev) {//ISPDevConfig config) {
         this.dev = dev;
-
-        //初始化
-        File file = new File("tmp.NCC");
         try {
-            LinearParameterHelper.WriteLinearParameter(dev.GetLinearPar(), file);
-            ShowFile(file);
+            showPar(dev.GetLinearPar());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
             Logger.getLogger(SetUpLinearPar.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            file.delete();
         }
     }
 
-    //文件显示成txt
-    private void ShowFile(File file) {
-        try {
-            String encoding = "GBK";
-            if (file.isFile() && file.exists()) { //判断文件是否存在
-                InputStreamReader read = new InputStreamReader(
-                        new FileInputStream(file), encoding);//考虑到编码格式
-                BufferedReader bufferedReader = new BufferedReader(read);
-                String lineTxt = null;
-                while ((lineTxt = bufferedReader.readLine()) != null) {
-                    this.TextArea_LinearValue.setText(this.TextArea_LinearValue.getText() + lineTxt + "\r\n");
-                }
-                read.close();
-            } else {
-                System.out.println("找不到指定的文件");
+    private void showPar(SSLinearParameter par) {
+        this.lineartable.setModel(new AbstractTableModel() {
+            @Override
+            public int getRowCount() {
+                return par.NodeKNumber;
             }
-        } catch (Exception e) {
-            System.out.println("读取文件内容出错");
-            e.printStackTrace();
-        }
+
+            @Override
+            public int getColumnCount() {
+                return 2;
+            }
+
+            @Override
+            public Object getValueAt(int i, int i1) {
+                if (i1 == 0) {
+                    return par.ADValueArray[i];
+                } else {
+                    return par.KParArray[i];
+                }
+            }
+        });
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,8 +81,8 @@ public class SetUpLinearPar extends javax.swing.JPanel {
         jToggleButton1 = new javax.swing.JToggleButton();
         Button_Import = new javax.swing.JButton();
         Button_Export = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TextArea_LinearValue = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lineartable = new javax.swing.JTable();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -102,10 +100,18 @@ public class SetUpLinearPar extends javax.swing.JPanel {
             }
         });
 
-        TextArea_LinearValue.setEditable(false);
-        TextArea_LinearValue.setColumns(20);
-        TextArea_LinearValue.setRows(5);
-        jScrollPane1.setViewportView(TextArea_LinearValue);
+        lineartable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(lineartable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,12 +122,12 @@ public class SetUpLinearPar extends javax.swing.JPanel {
                 .addComponent(Button_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Button_Export, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Button_Import)
@@ -129,23 +135,8 @@ public class SetUpLinearPar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Button_ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ImportActionPerformed
-        File file = FileDialogHelp.GetFilePath(LinearParameterHelper.fileEndMark);
-        if (file == null) {
-            return;
-        }
-        try (ISpDevice tdev = this.dev) {
-            tdev.Open();
-            tdev.SetLinearPar(LinearParameterHelper.ReadLinearParameter(file));
-            this.ShowFile(file);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            Logger.getLogger(SetUpLinearPar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_Button_ImportActionPerformed
-
     private void Button_ExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ExportActionPerformed
-        File file = FileDialogHelp.GetFilePath(LinearParameterHelper.fileEndMark);
+         File file = FileDialogHelp.GetFilePath(LinearParameterHelper.fileEndMark);
         if (file == null) {
             return;
         }
@@ -157,11 +148,27 @@ public class SetUpLinearPar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Button_ExportActionPerformed
 
+    private void Button_ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ImportActionPerformed
+        File file = FileDialogHelp.GetFilePath(LinearParameterHelper.fileEndMark);
+        if (file == null) {
+            return;
+        }
+        try (ISpDevice tdev = this.dev) {
+            tdev.Open();
+            SSLinearParameter ReadLinearParameter = LinearParameterHelper.ReadLinearParameter(file);
+            tdev.SetLinearPar(ReadLinearParameter);
+            showPar(ReadLinearParameter);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            Logger.getLogger(SetUpLinearPar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Button_ImportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_Export;
     private javax.swing.JButton Button_Import;
-    private javax.swing.JTextArea TextArea_LinearValue;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTable lineartable;
     // End of variables declaration//GEN-END:variables
 }
