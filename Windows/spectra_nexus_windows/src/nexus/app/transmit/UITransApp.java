@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
-import nahon.comm.event.Event;
-import nahon.comm.event.EventListener;
+import nahon.comm.event.NEvent;
+import nahon.comm.event.NEventListener;
 import nahon.comm.faultsystem.LogCenter;
 import java.io.IOException;
 import nexus.main.compent.FileDialogHelp;
@@ -76,17 +76,17 @@ public class UITransApp extends javax.swing.JPanel {
     private void InitAppControl() {
         commapp = SpectralPlatService.GetInstance().GetAppManager().GetTrsApp();
         
-        SpectralPlatService.GetInstance().GetAppManager().TestEvent.RegeditListener(new EventListener<Boolean>() {
+        SpectralPlatService.GetInstance().GetAppManager().TestEvent.RegeditListener(new NEventListener<Boolean>() {
             @Override
-            public void recevieEvent(Event<Boolean> event) {
+            public void recevieEvent(NEvent<Boolean> event) {
                 //更新控制面板使能状态
                 Button_RefCollect.setEnabled(!event.GetEvent());
             }
         });
         
-        this.commapp.TESTEVENT_CENTER.RegeditListener(new EventListener<Integer>() {
+        this.commapp.TESTEVENT_CENTER.RegeditListener(new NEventListener<Integer>() {
             @Override
-            public void recevieEvent(Event<Integer> event) {
+            public void recevieEvent(NEvent<Integer> event) {
                 if (event.GetEvent() == AbsApp.REFTEST) {
                     sp_pane.UpdateRefData((SSpectralDataPacket) event.Info());
                 }

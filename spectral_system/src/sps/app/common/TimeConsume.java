@@ -5,7 +5,7 @@
  */
 package sps.app.common;
 
-import nahon.comm.event.EventCenter;
+import nahon.comm.event.NEventCenter;
 
 /**
  *
@@ -23,5 +23,5 @@ public class TimeConsume {
         TimeConsumeEvent.CreateEvent(System.nanoTime() - startTime);
     }
 
-    public EventCenter<Long> TimeConsumeEvent = new EventCenter();
+    public NEventCenter<Long> TimeConsumeEvent = new NEventCenter();
 }

@@ -6,7 +6,7 @@
 package sps.app.common;
 
 import java.util.logging.Level;
-import nahon.comm.event.EventCenter;
+import nahon.comm.event.NEventCenter;
 import nahon.comm.faultsystem.LogCenter;
 import sps.app.absorb.AbsApp;
 import sps.app.std.StanderApp;
@@ -117,6 +117,6 @@ public class AppManager {
         });
     }
 
-    public EventCenter<Boolean> TestEvent = new EventCenter();
+    public NEventCenter<Boolean> TestEvent = new NEventCenter();
     // </editor-fold> 
 }

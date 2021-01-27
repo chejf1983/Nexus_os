@@ -5,8 +5,8 @@
 package nexus.device.manager;
 
 import java.util.logging.Level;
-import nahon.comm.event.Event;
-import nahon.comm.event.EventListener;
+import nahon.comm.event.NEvent;
+import nahon.comm.event.NEventListener;
 import nahon.comm.faultsystem.LogCenter;
 import nexus.devcie.config.ConfigDialog;
 import nexus.main.entry.MainForm;
@@ -55,9 +55,9 @@ public class DeviceControlPanel extends javax.swing.JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="界面参数初始化">
     private void InitDeviceInfo() {
-        SpectralPlatService.GetInstance().GetAppManager().TestEvent.RegeditListener(new EventListener<Boolean>() {
+        SpectralPlatService.GetInstance().GetAppManager().TestEvent.RegeditListener(new NEventListener<Boolean>() {
             @Override
-            public void recevieEvent(Event<Boolean> event) {
+            public void recevieEvent(NEvent<Boolean> event) {
                 //更新控制面板使能状态
                 UpdateControlPaneState(event.GetEvent());
             }
@@ -68,9 +68,9 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         GlobalConfig TestConfig = SpectralPlatService.GetInstance().GetAppManager().TestConfig;
 
         //跟新按电流使能状态
-        SpectralPlatService.GetInstance().GetAppManager().TestConfig.ConfigUpdateEvent.RegeditListener(new EventListener() {
+        SpectralPlatService.GetInstance().GetAppManager().TestConfig.ConfigUpdateEvent.RegeditListener(new NEventListener() {
             @Override
-            public void recevieEvent(Event event) {
+            public void recevieEvent(NEvent event) {
                 //更新平均次数数据
                 Average_Input.setText(String.valueOf(TestConfig.collect_par.averageTime));
                 //更新积分时间状态

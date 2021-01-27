@@ -7,7 +7,7 @@ package sps.app.common;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import nahon.comm.event.EventCenter;
+import nahon.comm.event.NEventCenter;
 import nahon.comm.faultsystem.LogCenter;
 import sps.control.manager.ISpDevice;
 import sps.dev.data.SSpectralDataPacket;
@@ -29,7 +29,7 @@ public abstract class CTestApp {
     public static int DKTEST = 0;
     public static int TESTDATA = 1;
 
-    public EventCenter<Integer> TESTEVENT_CENTER = new EventCenter();
+    public NEventCenter<Integer> TESTEVENT_CENTER = new NEventCenter();
     protected boolean test_flag = false;
 
     // <editor-fold defaultstate="collapsed" desc="暗电流测试">  

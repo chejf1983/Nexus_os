@@ -5,7 +5,7 @@
  */
 package sps.app.common;
 
-import nahon.comm.event.EventCenter;
+import nahon.comm.event.NEventCenter;
 import sps.dev.data.SSCollectConfig;
 import sps.dev.data.SSCollectPar;
 
@@ -18,5 +18,5 @@ public class GlobalConfig {
     public SSCollectPar collect_par = new SSCollectPar(1, 1, 1, SSCollectPar.SoftMode);
     public SSCollectConfig collect_config = new SSCollectConfig(false, true, false, SSCollectConfig.NoneKey, 1);
 
-    public EventCenter ConfigUpdateEvent = new EventCenter();
+    public NEventCenter ConfigUpdateEvent = new NEventCenter();
 }
