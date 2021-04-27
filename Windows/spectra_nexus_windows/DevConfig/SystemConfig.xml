@@ -3,6 +3,7 @@
 <properties>
 <comment/>
 <entry key="INTDLL">N</entry>
+<entry key="COM">Y</entry>
 <entry key="VER">1.0.0.0</entry>
 <entry key="Filterkey">1</entry>
 <entry key="BGroundColor">#666666</entry>
