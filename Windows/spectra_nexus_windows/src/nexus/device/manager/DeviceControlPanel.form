@@ -66,26 +66,6 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="Label_IntervalTime" pref="79" max="32767" attributes="0"/>
-                                  <Component id="Label_IntegralTime" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="Label_AverageTime" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="IntegeralTime_Input" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="Average_Input" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="IntegervalTime_Input" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="Label_IntegralTimeUnit" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="Label_AverageUnit" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="Label_IntervalTimeUnit" min="-2" pref="41" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="ComboBox_CollectMode" alignment="0" max="32767" attributes="0"/>
@@ -97,15 +77,19 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="ToggleButton_LightEnable" linkSize="6" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="Button_FrequenCollect" linkSize="6" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="Button_StopCollect" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="Button_DarkModify" linkSize="6" min="-2" pref="53" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="ToggleButton_LightEnable" linkSize="6" min="-2" pref="49" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="Button_AutoTestTime" min="-2" pref="120" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Button_DarkModify" linkSize="6" min="-2" pref="53" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="PNG_DarkModify" linkSize="2" min="-2" pref="27" max="-2" attributes="0"/>
@@ -116,9 +100,31 @@
                                       <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
                                       <Component id="ToggleButton_LinearEnable" linkSize="8" min="-2" pref="194" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="Button_AutoTestTime" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="Label_window" max="32767" attributes="0"/>
+                                  <Component id="Label_IntervalTime" alignment="0" pref="79" max="32767" attributes="0"/>
+                                  <Component id="Label_IntegralTime" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="Label_AverageTime" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="IntegeralTime_Input" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="Average_Input" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="IntegervalTime_Input" alignment="0" pref="95" max="32767" attributes="0"/>
+                                  <Component id="Average_Input1" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="Label_IntegralTimeUnit" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="Label_AverageUnit" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="Label_IntervalTimeUnit" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="Label_AverageUnit1" min="-2" pref="41" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -149,11 +155,15 @@
                               <Component id="IntegervalTime_Input" alignment="3" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="ComboBox_CollectMode" linkSize="5" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="Button_AutoTestTime" linkSize="5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="Average_Input1" alignment="3" max="32767" attributes="0"/>
+                          <Component id="Label_window" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Label_AverageUnit1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="ComboBox_CollectMode" min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Button_SingelCollect" linkSize="7" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="Button_FrequenCollect" linkSize="7" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
@@ -161,9 +171,10 @@
                           <Component id="Button_DarkModify" linkSize="7" min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="ToggleButton_LightEnable" linkSize="7" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="Button_SetParameter" linkSize="7" alignment="0" pref="34" max="32767" attributes="0"/>
+                          <Component id="Button_AutoTestTime" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -400,6 +411,32 @@
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ToggleButton_LightEnableItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ToggleButton_LightEnableActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Label_window">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" size="15" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="&#x5e73;&#x6ed1;&#x8bbe;&#x7f6e;&#xff1a;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="Average_Input1">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="Average_Input1FocusLost"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Label_AverageUnit1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" size="15" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="text" type="java.lang.String" value="1-10"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

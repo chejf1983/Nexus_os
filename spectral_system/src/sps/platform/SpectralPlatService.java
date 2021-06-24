@@ -81,7 +81,7 @@ public class SpectralPlatService {
         if (this.systemthreadpool == null) {
             this.systemthreadpool = Executors.newFixedThreadPool(50);
         }
-        System.out.println("当前激活线程:" + ((ThreadPoolExecutor) systemthreadpool).getActiveCount());
+//        System.out.println("当前激活线程:" + ((ThreadPoolExecutor) systemthreadpool).getActiveCount());
         return this.systemthreadpool;
     }
 }

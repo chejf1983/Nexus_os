@@ -40,6 +40,7 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         Label_IntervalTime.setToolTipText("0-1hour");
         Label_IntegralTime.setToolTipText("0.1-60000ms");
         Label_AverageTime.setToolTipText("1-100times");
+        Label_window.setToolTipText("1-10");
 
         //初始化定标按钮是否可见
 //        String flag = SpectralPlatService.GetInstance().GetConfig().getProperty(SpectralSystemConfig.InternalFlag);
@@ -73,6 +74,8 @@ public class DeviceControlPanel extends javax.swing.JPanel {
             public void recevieEvent(NEvent event) {
                 //更新平均次数数据
                 Average_Input.setText(String.valueOf(TestConfig.collect_par.averageTime));
+                //平滑窗口
+                Average_Input1.setText(String.valueOf(TestConfig.collect_config.window));
                 //更新积分时间状态
                 IntegeralTime_Input.setText(String.valueOf(TestConfig.collect_par.integralTime));
                 //初始化采样间隔
@@ -91,6 +94,10 @@ public class DeviceControlPanel extends javax.swing.JPanel {
 
         //更新平均次数数据
         Average_Input.setText(String.valueOf(TestConfig.collect_par.averageTime));
+
+        //平滑窗口
+        Average_Input1.setText(String.valueOf(TestConfig.collect_config.window));
+
         //更新积分时间状态
         IntegeralTime_Input.setText(String.valueOf(TestConfig.collect_par.integralTime));
         //初始化采样间隔
@@ -105,6 +112,7 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         this.IntegeralTime_Input.setEnabled(!isTesting);
         this.IntegervalTime_Input.setEnabled(!isTesting);
         this.Average_Input.setEnabled(!isTesting);
+        this.Average_Input1.setEnabled(!isTesting);
 
         this.Button_AutoTestTime.setEnabled(!isTesting);
         this.ComboBox_CollectMode.setEnabled(!isTesting);
@@ -128,6 +136,7 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         Label_IntegralTime.setText("积分时间");
         Label_IntervalTime.setText("连续采样间隔");
         Label_AverageTime.setText("平均次数");
+        Label_window.setText("平滑设置");
 
         Label_IntegralTimeUnit.setText("ms");
         Label_IntervalTimeUnit.setText("s");
@@ -179,6 +188,9 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         PNG_LineCalibrate = new javax.swing.JLabel();
         ComboBox_CollectMode = new javax.swing.JComboBox();
         ToggleButton_LightEnable = new javax.swing.JToggleButton();
+        Label_window = new javax.swing.JLabel();
+        Average_Input1 = new javax.swing.JTextField();
+        Label_AverageUnit1 = new javax.swing.JLabel();
 
         Frame_list.setVisible(true);
 
@@ -326,6 +338,21 @@ public class DeviceControlPanel extends javax.swing.JPanel {
             }
         });
 
+        Label_window.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
+        Label_window.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Label_window.setText("平滑设置：");
+
+        Average_Input1.setEnabled(false);
+        Average_Input1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Average_Input1FocusLost(evt);
+            }
+        });
+
+        Label_AverageUnit1.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
+        Label_AverageUnit1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_AverageUnit1.setText("1-10");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -333,22 +360,6 @@ public class DeviceControlPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Label_IntervalTime, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                            .addComponent(Label_IntegralTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Label_AverageTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(IntegeralTime_Input, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Average_Input, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(IntegervalTime_Input, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Label_IntegralTimeUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Label_AverageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Label_IntervalTimeUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(ComboBox_CollectMode, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -359,22 +370,43 @@ public class DeviceControlPanel extends javax.swing.JPanel {
                                     .addComponent(Button_SingelCollect))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ToggleButton_LightEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(Button_FrequenCollect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Button_StopCollect)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Button_DarkModify, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Button_StopCollect)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Button_DarkModify, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(ToggleButton_LightEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Button_AutoTestTime, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(PNG_DarkModify, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ToggleButton_DarkEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
-                                .addComponent(ToggleButton_LinearEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Button_AutoTestTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10))))
+                                .addComponent(ToggleButton_LinearEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Label_window, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Label_IntervalTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                            .addComponent(Label_IntegralTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Label_AverageTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(IntegeralTime_Input, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Average_Input, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(IntegervalTime_Input, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(Average_Input1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_IntegralTimeUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_AverageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_IntervalTimeUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_AverageUnit1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {PNG_DarkModify, PNG_LineCalibrate});
@@ -403,20 +435,24 @@ public class DeviceControlPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Label_IntervalTime)
                         .addComponent(IntegervalTime_Input)))
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Average_Input1)
+                    .addComponent(Label_window)
+                    .addComponent(Label_AverageUnit1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ComboBox_CollectMode, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(Button_AutoTestTime)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Button_SingelCollect, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_FrequenCollect, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_StopCollect, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Button_DarkModify, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ToggleButton_LightEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_SetParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addComponent(Button_SetParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(Button_AutoTestTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PNG_DarkModify, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -431,8 +467,6 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ToggleButton_DarkEnable, ToggleButton_LinearEnable});
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {PNG_DarkModify, PNG_LineCalibrate});
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Button_AutoTestTime, ComboBox_CollectMode});
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Button_DarkModify, Button_FrequenCollect, Button_SetParameter, Button_SingelCollect, Button_StopCollect, ToggleButton_LightEnable});
 
@@ -513,6 +547,7 @@ public class DeviceControlPanel extends javax.swing.JPanel {
 
     private void Button_DarkModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_DarkModifyActionPerformed
         SpectralPlatService.GetInstance().GetAppManager().GetCurrentApp().DKTest();
+        ToggleButton_DarkEnable.setSelected(true);
     }//GEN-LAST:event_Button_DarkModifyActionPerformed
 
     private void Button_SetParameterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SetParameterActionPerformed
@@ -558,9 +593,18 @@ public class DeviceControlPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ToggleButton_LightEnableActionPerformed
 
+    private void Average_Input1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Average_Input1FocusLost
+        try {
+            SpectralPlatService.GetInstance().GetAppManager().TestConfig.collect_config.window = Integer.valueOf(this.Average_Input1.getText());
+        } catch (Exception ex) {
+            LogCenter.Instance().SendFaultReport(Level.SEVERE, ex);
+        }
+    }//GEN-LAST:event_Average_Input1FocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Average_Input;
+    private javax.swing.JTextField Average_Input1;
     private javax.swing.JButton Button_AutoTestTime;
     private javax.swing.JButton Button_DarkModify;
     private javax.swing.JButton Button_FrequenCollect;
@@ -573,10 +617,12 @@ public class DeviceControlPanel extends javax.swing.JPanel {
     private javax.swing.JTextField IntegervalTime_Input;
     private javax.swing.JLabel Label_AverageTime;
     private javax.swing.JLabel Label_AverageUnit;
+    private javax.swing.JLabel Label_AverageUnit1;
     private javax.swing.JLabel Label_IntegralTime;
     private javax.swing.JLabel Label_IntegralTimeUnit;
     private javax.swing.JLabel Label_IntervalTime;
     private javax.swing.JLabel Label_IntervalTimeUnit;
+    private javax.swing.JLabel Label_window;
     private javax.swing.JLabel PNG_DarkModify;
     private javax.swing.JLabel PNG_LineCalibrate;
     private javax.swing.JToggleButton ToggleButton_DarkEnable;
