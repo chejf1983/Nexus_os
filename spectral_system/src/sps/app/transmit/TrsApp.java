@@ -124,8 +124,8 @@ public class TrsApp extends CTestApp {
             String scurrent_data_num = info_table.rows.get(0)[1];
             String snapshot_data_num = info_table.rows.get(1)[1];
 
-            int i_cdata_num = Integer.valueOf(scurrent_data_num);
-            int i_sndata_num = Integer.valueOf(snapshot_data_num);
+            int i_cdata_num = Double.valueOf(scurrent_data_num).intValue();
+            int i_sndata_num = Double.valueOf(snapshot_data_num).intValue();
 
             //读取主光谱
             if (i_cdata_num != 0) {
