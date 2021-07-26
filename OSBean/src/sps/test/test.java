@@ -20,6 +20,7 @@ public class test {
     public static void main(String args[]) throws Exception {
         saveFile();
         /* Create and display the form */
+        SpectralPlatService.GetInstance().GetConfig().setProperty("COM", "Y");
         SpectralPlatService.GetInstance().GetConfig().setProperty("INTDLL", "Y");
         java.awt.EventQueue.invokeLater(() -> {
             new StartFlash().setVisible(true);
