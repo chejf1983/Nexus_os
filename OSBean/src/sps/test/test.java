@@ -34,7 +34,7 @@ public class test {
             String projectname = System.getProperty("user.dir");
             String pn = projectname.substring(projectname.lastIndexOf('\\') + 1, projectname.length());
             t1.AddRow(pn);//添加项目名称
-            t1.AddRow("气体检测");//添加中文名称
+            t1.AddRow("奥盛检测");//添加中文名称
             t1.AddRow(UIOSApp.class.getName());
             t1.Finish();
         }
